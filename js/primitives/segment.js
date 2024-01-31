@@ -14,7 +14,10 @@ class Segment {
     }
 
     equals(segment) {
-        return (this.p1.equals(segment.p1) && this.p2.equals(segment.p2))
-            || (this.p1.equals(segment.p2) && this.p2.equals(segment.p1));
+        return this.includesPoint(segment.p1) && this.includesPoint(segment.p2);
+    }
+
+    includesPoint(point) {
+        return this.p1.equals(point) || this.p2.equals(point);
     }
 }
