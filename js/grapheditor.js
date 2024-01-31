@@ -68,7 +68,8 @@ class GraphEditor {
         if (this.hovered)
             this.hovered.draw(this.ctx, {fill: true});
         if (this.selected) {
-            new Segment(this.selected, this.mouse).draw(ctx);
+            const intent = this.hovered ? this.hovered : this.mouse; // snap to point
+            new Segment(this.selected, intent).draw(ctx);
             this.selected.draw(this.ctx, {outline: true});
         }
     }
