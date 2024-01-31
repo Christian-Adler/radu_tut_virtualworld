@@ -34,7 +34,7 @@ class Graph {
     }
 
     tryAddSegment(segment) {
-        if (!this.containsSegment(segment)) {
+        if (segment.isValid() && !this.containsSegment(segment)) {
             this.addSegment(segment);
             return true;
         }

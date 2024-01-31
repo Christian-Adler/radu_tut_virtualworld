@@ -29,9 +29,8 @@ function addRandomPoint() {
 function addRandomSegment() {
     const idx1 = Math.floor(Math.random() * graph.points.length);
     const idx2 = Math.floor(Math.random() * graph.points.length);
-    let success = false;
-    if (idx1 !== idx2) {
-        success = graph.tryAddSegment(new Segment(graph.points[idx1], graph.points[idx2]));
+    const success = graph.tryAddSegment(new Segment(graph.points[idx1], graph.points[idx2]));
+    if (success) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         graph.draw(ctx);
     }

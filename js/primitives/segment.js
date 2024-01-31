@@ -20,4 +20,8 @@ class Segment {
     includesPoint(point) {
         return this.p1.equals(point) || this.p2.equals(point);
     }
+
+    isValid() {
+        return !this.p1.equals(this.p2);
+    }
 }
