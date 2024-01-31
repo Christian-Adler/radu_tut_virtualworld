@@ -17,3 +17,23 @@ const s4 = new Segment(p2, p3);
 
 const graph = new Graph([p1, p2, p3, p4], [s1, s2, s3, s4]);
 graph.draw(ctx);
+
+
+function addRandomPoint() {
+    const success = graph.tryAddPoint(new Point(Math.random() * canvas.width, Math.random() * canvas.height));
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    graph.draw(ctx);
+    console.log("added point: ", success);
+}
+
+function addRandomSegment() {
+    const idx1 = Math.floor(Math.random() * graph.points.length);
+    const idx2 = Math.floor(Math.random() * graph.points.length);
+    let success = false;
+    if (idx1 !== idx2) {
+        success = graph.tryAddSegment(new Segment(graph.points[idx1], graph.points[idx2]));
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        graph.draw(ctx);
+    }
+    console.log("added segment: ", success);
+}

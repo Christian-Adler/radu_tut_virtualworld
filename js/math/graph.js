@@ -12,4 +12,36 @@ class Graph {
             point.draw(ctx);
         }
     }
+
+    addPoint(point) {
+        this.points.push(point);
+    }
+
+    tryAddPoint(point) {
+        if (!this.containsPoint(point)) {
+            this.addPoint(point);
+            return true;
+        }
+        return false;
+    }
+
+    containsPoint(point) {
+        return this.points.find(p => p.equals(point));
+    }
+
+    addSegment(segment) {
+        this.segments.push(segment);
+    }
+
+    tryAddSegment(segment) {
+        if (!this.containsSegment(segment)) {
+            this.addSegment(segment);
+            return true;
+        }
+        return false;
+    }
+
+    containsSegment(segment) {
+        return this.segments.find(s => s.equals(segment));
+    }
 }
