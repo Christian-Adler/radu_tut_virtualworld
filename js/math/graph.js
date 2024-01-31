@@ -29,6 +29,18 @@ class Graph {
         return this.points.find(p => p.equals(point));
     }
 
+    removePoint(point) {
+        const toRemoveSegments = this.getSegmentsWithPoint(point);
+        for (const toRemoveSegment of toRemoveSegments) {
+            this.removeSegment(toRemoveSegment);
+        }
+        this.points.splice(this.points.indexOf(point), 1);
+    }
+
+    getSegmentsWithPoint(point) {
+        return this.segments.filter(s => s.includesPoint(point));
+    }
+
     addSegment(segment) {
         this.segments.push(segment);
     }
@@ -43,5 +55,14 @@ class Graph {
 
     containsSegment(segment) {
         return this.segments.find(s => s.equals(segment));
+    }
+
+    removeSegment(segment) {
+        this.segments.splice(this.segments.indexOf(segment), 1);
+    }
+
+    dispose() {
+        this.points.length = 0;
+        this.segments.length = 0;
     }
 }

@@ -26,7 +26,23 @@ function addRandomPoint() {
     console.log("added point: ", success);
 }
 
+function removeRandomPoint() {
+    if (graph.points.length === 0) {
+        console.log('no points...');
+        return;
+    }
+    const idx1 = Math.floor(Math.random() * graph.points.length);
+    graph.removePoint(graph.points[idx1]);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    graph.draw(ctx);
+}
+
 function addRandomSegment() {
+    if (graph.points.length <= 1) {
+        console.log("to few points -> no segment added");
+        return;
+    }
     const idx1 = Math.floor(Math.random() * graph.points.length);
     const idx2 = Math.floor(Math.random() * graph.points.length);
     const success = graph.tryAddSegment(new Segment(graph.points[idx1], graph.points[idx2]));
@@ -35,4 +51,22 @@ function addRandomSegment() {
         graph.draw(ctx);
     }
     console.log("added segment: ", success);
+}
+
+function removeRandomSegment() {
+    if (graph.segments.length === 0) {
+        console.log('no segments...');
+        return;
+    }
+    const idx1 = Math.floor(Math.random() * graph.segments.length);
+    graph.removeSegment(graph.segments[idx1]);
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    graph.draw(ctx);
+}
+
+function removeAll() {
+    graph.dispose();
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    graph.draw(ctx);
 }
