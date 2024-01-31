@@ -69,7 +69,7 @@ class GraphEditor {
             this.hovered.draw(this.ctx, {fill: true});
         if (this.selected) {
             const intent = this.hovered ? this.hovered : this.mouse; // snap to point
-            new Segment(this.selected, intent).draw(ctx);
+            new Segment(this.selected, intent).draw(ctx, {color: 'rgba(0,0,0,0.5)', dash: [3, 3]});
             this.selected.draw(this.ctx, {outline: true});
         }
     }
