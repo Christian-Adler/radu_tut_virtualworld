@@ -16,16 +16,18 @@ class GraphEditor {
             if (evt.button === 2) { // right click
                 if (this.hovered) {
                     this.#removePoint(this.hovered);
+                } else {
+                    this.selected = null;
                 }
             } else if (evt.button === 0) { // left click
                 const mouse = new Point(evt.offsetX, evt.offsetY);
                 if (this.hovered) {
-                    this.selected = this.hovered;
+                    this.#select(this.hovered);
                     this.dragging = true;
                     return;
                 }
                 this.graph.addPoint(mouse);
-                this.selected = mouse;
+                this.#select(mouse);
                 this.hovered = mouse;
             }
         });
@@ -44,6 +46,13 @@ class GraphEditor {
             this.dragging = false;
         });
 
+    }
+
+    #select(point) {
+        if (this.selected) {
+            this.graph.tryAddSegment(new Segment(this.selected, point));
+        }
+        this.selected = point;
     }
 
     #removePoint(point) {
