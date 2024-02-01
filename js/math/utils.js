@@ -14,3 +14,11 @@ function getNearestPoint(loc, points, threshold = Number.MAX_SAFE_INTEGER) {
     }
     return nearest;
 }
+
+function add(p1, p2) {
+    return new Point(p1.x + p2.x, p1.y + p2.y);
+}
+
+function subtract(p1, p2) {
+    return new Point(p1.x - p2.x, p1.y - p2.y);
+}
