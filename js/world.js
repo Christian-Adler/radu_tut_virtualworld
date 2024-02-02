@@ -5,7 +5,6 @@ class World {
         this.roundness = roundness;
 
         this.envelopes = [];
-        // this.intersections = [];
 
         this.generate();
     }
@@ -17,16 +16,12 @@ class World {
             this.envelopes.push(new Envelope(seg, this.roadWidth, this.roundness));
         }
 
-        /* this.intersections =*/
-        Polygon.break(this.envelopes[0].poly, this.envelopes[1].poly);
+        Polygon.multiBreak(this.envelopes.map(e => e.poly));
     }
 
     draw(ctx) {
         for (const envelope of this.envelopes) {
             envelope.draw(ctx);
         }
-        // for (const intersections of this.intersections) {
-        //     intersections.draw(ctx, {color: 'red', size: 6});
-        // }
     }
 }

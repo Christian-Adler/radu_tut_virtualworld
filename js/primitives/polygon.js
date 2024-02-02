@@ -36,6 +36,16 @@ class Polygon {
         // return intersections;
     }
 
+    static multiBreak(polygons) {
+        for (let i = 0; i < polygons.length - 1; i++) {
+            const polygon1 = polygons[i];
+            for (let j = i + 1; j < polygons.length; j++) {
+                const polygon2 = polygons[j];
+                Polygon.break(polygon1, polygon2);
+            }
+        }
+    }
+
     drawSegments(ctx) {
         for (const segment of this.segments) {
             segment.draw(ctx, {color: getRandomColor(), width: 5});
@@ -59,4 +69,5 @@ class Polygon {
         ctx.fill();
         ctx.stroke();
     }
+
 }
