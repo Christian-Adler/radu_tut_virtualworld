@@ -4,6 +4,22 @@ class Graph {
         this.segments = segments;
     }
 
+    static load(graphInfo) {
+        const points = [];
+        const segments = [];
+        for (const pointInfo of graphInfo.points) {
+            points.push(new Point(pointInfo.x, pointInfo.y));
+        }
+        for (const segmentInfo of graphInfo.segments) {
+            points.push(new Segment(
+                points.find(p => p.equals(segmentInfo.p1)),
+                points.find(p => p.equals(segmentInfo.p2))
+            ));
+        }
+
+        return new Graph(points, segments);
+    }
+
     draw(ctx) {
         for (const segment of this.segments) {
             segment.draw(ctx);
@@ -65,4 +81,5 @@ class Graph {
         this.points.length = 0;
         this.segments.length = 0;
     }
+
 }

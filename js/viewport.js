@@ -17,6 +17,17 @@ class Viewport {
         this.#addEventListeners();
     }
 
+    reset() {
+        const ctx = this.ctx;
+        ctx.restore();
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        ctx.save();
+        ctx.translate(this.center.x, this.center.y);
+        ctx.scale(1 / this.zoom, 1 / this.zoom);
+        const offset = this.getOffset()
+        ctx.translate(offset.x, offset.y);
+    }
+
     getMouse(evt, subtractDragOffset = false) {
         const p = new Point(
             (evt.offsetX - this.center.x) * this.zoom - this.offset.x,
