@@ -4,7 +4,8 @@ class Viewport {
         this.ctx = canvas.getContext('2d');
 
         this.zoom = 1;
-        this.offset = new Point(0, 0);
+        this.center = new Point(canvas.width / 2, canvas.height / 2);
+        this.offset = scale(this.center, -1);
 
         this.drag = {
             start: new Point(0, 0),
@@ -16,8 +17,13 @@ class Viewport {
         this.#addEventListeners();
     }
 
-    getMouse(evt) {
-        return new Point(evt.offsetX * this.zoom, evt.offsetY * this.zoom);
+    getMouse(evt, subtractDragOffset = false) {
+        const p = new Point(
+            (evt.offsetX - this.center.x) * this.zoom - this.offset.x,
+            (evt.offsetY - this.center.y) * this.zoom - this.offset.y
+        );
+
+        return subtractDragOffset ? subtract(p, this.drag.offset) : p;
     }
 
     getOffset() {
@@ -25,7 +31,7 @@ class Viewport {
     }
 
     #addEventListeners() {
-        this.canvas.addEventListener('mousewheel', this.#handleMouseWheel.bind(this));
+        this.canvas.addEventListener('wheel', this.#handleMouseWheel.bind(this));
         this.canvas.addEventListener('mousedown', this.#handleMouseDown.bind(this));
         this.canvas.addEventListener('mousemove', this.#handleMouseMove.bind(this));
         this.canvas.addEventListener('mouseup', this.#handleMouseUp.bind(this));
@@ -36,7 +42,6 @@ class Viewport {
         const step = 0.1;
         this.zoom += dir * step;
         this.zoom = Math.max(0.5, Math.min(5, this.zoom));
-        console.log('zoom:', this.zoom);
     }
 
     #handleMouseDown(evt) {
@@ -53,7 +58,7 @@ class Viewport {
         }
     }
 
-    #handleMouseUp(evt) {
+    #handleMouseUp(/*evt*/) {
         if (this.drag.active) {// middle button
             this.offset = add(this.offset, this.drag.offset);
 
