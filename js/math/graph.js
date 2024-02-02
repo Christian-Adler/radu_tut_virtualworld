@@ -5,17 +5,11 @@ class Graph {
     }
 
     static load(graphInfo) {
-        const points = [];
-        const segments = [];
-        for (const pointInfo of graphInfo.points) {
-            points.push(new Point(pointInfo.x, pointInfo.y));
-        }
-        for (const segmentInfo of graphInfo.segments) {
-            points.push(new Segment(
-                points.find(p => p.equals(segmentInfo.p1)),
-                points.find(p => p.equals(segmentInfo.p2))
-            ));
-        }
+        const points = graphInfo.points.map(i => new Point(i.x, i.y));
+        const segments = graphInfo.segments.map(i => new Segment(
+            points.find(p => p.equals(i.p1)),
+            points.find(p => p.equals(i.p2))
+        ));
 
         return new Graph(points, segments);
     }

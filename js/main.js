@@ -15,6 +15,9 @@ animate();
 function animate() {
     viewport.reset();
     graphEditor.display();
+
+    new Polygon(graph.points).draw(ctx);
+
     requestAnimationFrame(animate);
 }
 
