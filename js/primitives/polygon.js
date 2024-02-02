@@ -46,6 +46,48 @@ class Polygon {
         }
     }
 
+    static union(polygons) {
+        Polygon.multiBreak(polygons);
+        const keptSegments = [];
+        for (let i = 0; i < polygons.length; i++) {
+            const polygonI = polygons[i];
+            for (const segment of polygonI.segments) {
+                let keep = true;
+                for (let j = 0; j < polygons.length; j++) {
+                    const polygonJ = polygons[j];
+                    if (i !== j) {
+                        if (polygonJ.containsSegment(segment)) {
+                            keep = false;
+                            break;
+                        }
+                    }
+                }
+                if (keep) keptSegments.push(segment);
+            }
+        }
+        return keptSegments;
+    }
+
+    /**
+     * Name a little bit misleading - only checks if the middle point is contained
+     * @param segment
+     */
+    containsSegment(segment) {
+        const midPoint = average(segment.p1, segment.p2);
+        return this.containsPoint(midPoint);
+    }
+
+    containsPoint(point) {
+        const outerPoint = new Point(-10000, -10000);
+        let intersectionCount = 0;
+        for (const segment of this.segments) {
+            const int = getIntersection(outerPoint, point, segment.p1, segment.p2);
+            if (int)
+                intersectionCount++;
+        }
+        return intersectionCount % 2 === 1;
+    }
+
     drawSegments(ctx) {
         for (const segment of this.segments) {
             segment.draw(ctx, {color: getRandomColor(), width: 5});
