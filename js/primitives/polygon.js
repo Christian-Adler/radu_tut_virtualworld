@@ -8,22 +8,38 @@ class Polygon {
     }
 
     static break(poly1, poly2) {
-        const segs1 = poly1.segments;
-        const segs2 = poly2.segments;
-        const intersections = [];
-        for (const seg1Item of segs1) {
-            for (const seg2Item of segs2) {
+        const segments1 = poly1.segments;
+        const segments2 = poly2.segments;
+        // const intersections = [];
+        for (let i = 0; i < segments1.length; i++) {
+            const segment1 = segments1[i];
+            for (let j = 0; j < segments2.length; j++) {
+                const segment2 = segments2[j];
+
                 const int = getIntersection(
-                    seg1Item.p1, seg1Item.p2, seg2Item.p1, seg2Item.p2
+                    segment1.p1, segment1.p2, segment2.p1, segment2.p2
                 );
 
                 if (int && int.offset !== 1 && int.offset !== 0) {
                     const point = new Point(int.x, int.y);
-                    intersections.push(point);
+                    // intersections.push(point);
+                    let aux = segment1.p2;
+                    segment1.p2 = point;
+                    segments1.splice(i + 1, 0, new Segment(point, aux));
+
+                    aux = segment2.p2;
+                    segment2.p2 = point;
+                    segments2.splice(j + 1, 0, new Segment(point, aux));
                 }
             }
         }
-        return intersections;
+        // return intersections;
+    }
+
+    drawSegments(ctx) {
+        for (const segment of this.segments) {
+            segment.draw(ctx, {color: getRandomColor(), width: 5});
+        }
     }
 
     draw(ctx, {stroke = 'blue', lineWidth = 2, fill = 'rgba(0,0,255,0.3)'} = {}) {
