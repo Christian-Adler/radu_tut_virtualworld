@@ -130,3 +130,7 @@ function getFake3dPoint(point, viewPoint, height) {
     const scaler = Math.atan(dist / 300) / (Math.PI / 2);
     return add(point, scale(dir, height * scaler));
 }
+
+function elById(id) {
+    return window.document.getElementById(id);
+}

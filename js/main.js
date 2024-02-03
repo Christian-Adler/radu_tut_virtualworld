@@ -1,8 +1,3 @@
-const graphBtn = window.document.getElementById('graphBtn');
-const stopBtn = window.document.getElementById('stopBtn');
-const crossingBtn = window.document.getElementById('crossingBtn');
-
-
 const canvas = window.document.getElementById('canvas');
 canvas.width = 600;
 canvas.height = 600;
@@ -16,9 +11,10 @@ const world = new World(graph);
 const viewport = new Viewport(canvas);
 
 const tools = {
-    graph: {button: graphBtn, editor: new GraphEditor(viewport, graph)},
-    stop: {button: stopBtn, editor: new StopEditor(viewport, world)},
-    crossing: {button: crossingBtn, editor: new CrossingEditor(viewport, world)}
+    graph: {button: elById('graphBtn'), editor: new GraphEditor(viewport, graph)},
+    stop: {button: elById('stopBtn'), editor: new StopEditor(viewport, world)},
+    crossing: {button: elById('crossingBtn'), editor: new CrossingEditor(viewport, world)},
+    start: {button: elById('startBtn'), editor: new StartEditor(viewport, world)}
 };
 
 setMode('graph');
