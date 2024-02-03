@@ -15,6 +15,10 @@ class Segment {
         ctx.setLineDash([]);
     }
 
+    length() {
+        return distance(this.p1, this.p2);
+    }
+
     equals(segment) {
         return this.includesPoint(segment.p1) && this.includesPoint(segment.p2);
     }
