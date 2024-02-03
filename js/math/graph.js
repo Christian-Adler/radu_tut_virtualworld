@@ -14,6 +14,10 @@ class Graph {
         return new Graph(points, segments);
     }
 
+    hash() {
+        return JSON.stringify(this);
+    }
+
     draw(ctx) {
         for (const segment of this.segments) {
             segment.draw(ctx);
