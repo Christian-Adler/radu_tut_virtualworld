@@ -26,6 +26,8 @@ class MarkingEditor {
         return 0;
     }
 
+    // used in main.js in for loop     tool.editor.enable();
+    // noinspection JSUnusedGlobalSymbols
     enable() {
         this.#addEventListeners();
         this.enabled = true;
@@ -92,7 +94,8 @@ class MarkingEditor {
             this.intent = null;
     }
 
-
+    // used in main.js in for loop     tool.editor.display();
+    // noinspection JSUnusedGlobalSymbols
     display() {
         if (!this.enabled)
             return;
