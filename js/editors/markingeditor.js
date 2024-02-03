@@ -22,7 +22,7 @@ class MarkingEditor {
     }
 
     // to be overwritten
-    getMarkingDistanceToSegmentEndThresdhold() {
+    getMarkingDistanceToSegmentEndThreshold() {
         return 0;
     }
 
@@ -78,12 +78,12 @@ class MarkingEditor {
         if (segment) {
             const projection = segment.projectPoint(this.mouse);
 
-            const markingDistanceToSegmentEndThresdhold = this.getMarkingDistanceToSegmentEndThresdhold();
+            const markingDistanceToSegmentEndThreshold = this.getMarkingDistanceToSegmentEndThreshold();
             const projectionPoint = projection.point;
 
             if (projection.offset >= 0 && projection.offset <= 1
-                && distance(projectionPoint, segment.p1) > markingDistanceToSegmentEndThresdhold
-                && distance(projectionPoint, segment.p2) > markingDistanceToSegmentEndThresdhold
+                && distance(projectionPoint, segment.p1) > markingDistanceToSegmentEndThreshold
+                && distance(projectionPoint, segment.p2) > markingDistanceToSegmentEndThreshold
             )
                 this.intent = this.createMarking(projection.point, segment.directionVector());
             else
