@@ -24,6 +24,9 @@ class World {
         for (const envelope of this.envelopes) {
             envelope.draw(ctx, {fill: '#bbb', stroke: '#bbb', lineWidth: 15});
         }
+        for (const segment of graph.segments) {
+            segment.draw(ctx, {color: 'white', width: 4, dash: [10, 10]})
+        }
         for (const segment of this.roadBorders) {
             segment.draw(ctx, {color: 'white', width: 4});
         }
