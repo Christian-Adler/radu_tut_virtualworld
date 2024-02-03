@@ -1,5 +1,6 @@
 const graphBtn = window.document.getElementById('graphBtn');
 const stopBtn = window.document.getElementById('stopBtn');
+const crossingBtn = window.document.getElementById('crossingBtn');
 
 
 const canvas = window.document.getElementById('canvas');
@@ -15,6 +16,7 @@ const world = new World(graph);
 const viewport = new Viewport(canvas);
 const graphEditor = new GraphEditor(viewport, graph);
 const stopEditor = new StopEditor(viewport, world);
+const crossingEditor = new CrossingEditor(viewport, world);
 
 setMode('graph');
 
@@ -35,6 +37,7 @@ function animate() {
     ctx.globalAlpha = 0.8;
     graphEditor.display();
     stopEditor.display();
+    crossingEditor.display();
 
     requestAnimationFrame(animate);
 }
@@ -61,6 +64,11 @@ function setMode(mode) {
             stopBtn.style.filter = '';
             stopEditor.enable();
             break;
+        case 'crossing':
+            crossingBtn.style.backgroundColor = 'white';
+            crossingBtn.style.filter = '';
+            crossingEditor.enable();
+            break;
     }
 }
 
@@ -68,7 +76,10 @@ function disableEditors() {
     graphBtn.style.backgroundColor = 'gray';
     graphBtn.style.filter = 'grayscale(100%)';
     graphEditor.disable();
-    stopEditor.disable();
     stopBtn.style.backgroundColor = 'gray';
     stopBtn.style.filter = 'grayscale(100%)';
+    stopEditor.disable();
+    crossingBtn.style.backgroundColor = 'gray';
+    crossingBtn.style.filter = 'grayscale(100%)';
+    crossingEditor.disable();
 }
