@@ -9,6 +9,10 @@ h1 {
     font-family: Arial, serif;
 }
 
+button:hover {
+    background: lightgray;
+}
+
 #canvas {
     background: #2a5;
 }
