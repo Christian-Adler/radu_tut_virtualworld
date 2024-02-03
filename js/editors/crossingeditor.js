@@ -6,4 +6,8 @@ class CrossingEditor extends MarkingEditor {
     createMarking(center, directionVector) {
         return new Crossing(center, directionVector, this.world.roadWidth, this.world.roadWidth / 2);
     }
+
+    getMarkingDistanceToSegmentEndThresdhold() {
+        return this.world.roadWidth * 3 / 4;
+    }
 }

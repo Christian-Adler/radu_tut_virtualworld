@@ -21,6 +21,11 @@ class MarkingEditor {
         return center;
     }
 
+    // to be overwritten
+    getMarkingDistanceToSegmentEndThresdhold() {
+        return 0;
+    }
+
     enable() {
         this.#addEventListeners();
         this.enabled = true;
@@ -72,7 +77,14 @@ class MarkingEditor {
         const segment = getNearestSegment(this.mouse, this.targetSegments, 10 * this.viewport.zoom);
         if (segment) {
             const projection = segment.projectPoint(this.mouse);
-            if (projection.offset >= 0 && projection.offset <= 1)
+
+            const markingDistanceToSegmentEndThresdhold = this.getMarkingDistanceToSegmentEndThresdhold();
+            const projectionPoint = projection.point;
+
+            if (projection.offset >= 0 && projection.offset <= 1
+                && distance(projectionPoint, segment.p1) > markingDistanceToSegmentEndThresdhold
+                && distance(projectionPoint, segment.p2) > markingDistanceToSegmentEndThresdhold
+            )
                 this.intent = this.createMarking(projection.point, segment.directionVector());
             else
                 this.intent = null;
