@@ -63,9 +63,13 @@ class StopEditor {
     #handleMouseMove(evt) {
         this.mouse = this.viewport.getMouse(evt, true);
         const segment = getNearestSegment(this.mouse, this.world.graph.segments, 10 * this.viewport.zoom);
-        if (segment)
-            this.intent = segment;
-        else
+        if (segment) {
+            const projection = segment.projectPoint(this.mouse);
+            if (projection.offset >= 0 && projection.offset <= 1)
+                this.intent = new Stop(projection.point, segment.directionVector(), this.world.roadWidth, world.roadWidth / 2);
+            else
+                this.intent = null;
+        } else
             this.intent = null;
     }
 
