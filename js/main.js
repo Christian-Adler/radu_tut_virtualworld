@@ -32,7 +32,7 @@ function animate() {
     const viewPoint = scale(viewport.getOffset(), -1);
     world.draw(ctx, viewPoint);
 
-    ctx.globalAlpha = 0.3;
+    ctx.globalAlpha = 0.8;
     graphEditor.display();
     stopEditor.display();
 

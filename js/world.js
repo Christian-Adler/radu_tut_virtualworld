@@ -27,6 +27,7 @@ class World {
     }
 
     generate() {
+        // this.markings.length = 0;
         this.envelopes.length = 0;
 
         for (const seg of this.graph.segments) {

@@ -76,6 +76,9 @@ class StopEditor {
 
 
     display() {
+        if (!this.enabled)
+            return;
+        
         if (this.intent)
             this.intent.draw(this.ctx);
     }
