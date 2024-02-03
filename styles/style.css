@@ -9,6 +9,16 @@ h1 {
     font-family: Arial, serif;
 }
 
+button {
+    background: white;
+    font-size: 20px;
+    padding: 5px 7px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-shadow: 1px 1px black;
+}
+
 button:hover {
     background: lightgray;
 }
