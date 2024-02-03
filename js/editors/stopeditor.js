@@ -9,6 +9,8 @@ class StopEditor {
         this.mouse = null;
         this.intent = null;
 
+        this.markings = world.markings;
+
         this.enabled = false;
     }
 
@@ -42,22 +44,21 @@ class StopEditor {
 
 
     #handleMouseDown(evt) {
-        // if (evt.button === 2) { // right click
-        //     if (this.selected)
-        //         this.selected = null;
-        //     else if (this.hovered)
-        //         this.#removePoint(this.hovered);
-        //
-        // } else if (evt.button === 0) { // left click
-        //     if (this.hovered) {
-        //         this.#select(this.hovered);
-        //         this.dragging = true;
-        //         return;
-        //     }
-        //     this.graph.addPoint(this.mouse);
-        //     this.#select(this.mouse);
-        //     this.hovered = this.mouse;
-        // }
+        if (evt.button === 0) { // left click
+            if (this.intent) {
+                this.markings.push(this.intent);
+                this.intent = null;
+            }
+        } else if (evt.button === 2) { // right click
+            for (let i = 0; i < this.markings.length; i++) {
+                const marking = this.markings[i];
+                const polygon = marking.polygon;
+                if (polygon.containsPoint(this.mouse)) {
+                    this.markings.splice(i, 1);
+                    return;
+                }
+            }
+        }
     }
 
     #handleMouseMove(evt) {
