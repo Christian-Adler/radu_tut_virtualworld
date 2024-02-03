@@ -15,10 +15,12 @@ class Tree {
         for (let level = 0; level < levelCount; level++) {
             const t = level / (levelCount - 1);
             const point = lerp2D(this.center, top, t);
-            point.draw(ctx, {size: this.size, color: 'green'});
+            const color = 'rgb(30,' + lerp(50, 200, t) + ',70)';
+            const size = lerp(this.size, this.size / 4, t);
+            point.draw(ctx, {size, color});
         }
 
-        new Segment(this.center, top).draw(ctx);
+        // new Segment(this.center, top).draw(ctx); // axis of the tree ;)
     }
 
 }
