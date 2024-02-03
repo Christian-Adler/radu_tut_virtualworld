@@ -14,6 +14,7 @@ const graph = graphInfo ? Graph.load(graphInfo) : new Graph();
 const world = new World(graph);
 const viewport = new Viewport(canvas);
 const graphEditor = new GraphEditor(viewport, graph);
+const stopEditor = new StopEditor(viewport, world);
 
 setMode('graph');
 
@@ -33,6 +34,7 @@ function animate() {
 
     ctx.globalAlpha = 0.3;
     graphEditor.display();
+    stopEditor.display();
 
     requestAnimationFrame(animate);
 }
@@ -56,6 +58,7 @@ function setMode(mode) {
         case 'stop':
             stopBtn.style.backgroundColor = 'white';
             stopBtn.style.filter = '';
+            stopEditor.enable();
             break;
     }
 }
@@ -64,6 +67,7 @@ function disableEditors() {
     graphBtn.style.backgroundColor = 'gray';
     graphBtn.style.filter = 'grayscale(100%)';
     graphEditor.disable();
+    stopEditor.disable();
     stopBtn.style.backgroundColor = 'gray';
     stopBtn.style.filter = 'grayscale(100%)';
 }
