@@ -3,7 +3,16 @@ class Tree {
         this.center = center;
         this.size = size; // size of the base
         this.heightCoef = heightCoef;
-        this.base = this.#generateLevel(center, size); // tree base to interact with cars later...
+        this.base = this.#generateBase(center, size); // tree base to interact with cars later...
+    }
+
+    #generateBase(point, size) {
+        const points = [];
+        const rad = size / 2;
+        for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 4) {
+            points.push(translate(point, angle, rad));
+        }
+        return new Polygon(points);
     }
 
     #generateLevel(point, size) {
@@ -34,7 +43,9 @@ class Tree {
             const poly = this.#generateLevel(point, size);
             poly.draw(ctx, {fill: color, stroke: 'rgba(0,0,0,0)'});
         }
-        this.base.draw(ctx);
+
+        // this.base.draw(ctx);
+
         // new Segment(this.center, top).draw(ctx); // axis of the tree ;)
     }
 
