@@ -14,7 +14,11 @@ const tools = {
     graph: {button: elById('graphBtn'), editor: new GraphEditor(viewport, graph)},
     stop: {button: elById('stopBtn'), editor: new StopEditor(viewport, world)},
     crossing: {button: elById('crossingBtn'), editor: new CrossingEditor(viewport, world)},
-    start: {button: elById('startBtn'), editor: new StartEditor(viewport, world)}
+    start: {button: elById('startBtn'), editor: new StartEditor(viewport, world)},
+    parking: {button: elById('parkingBtn'), editor: new ParkingEditor(viewport, world)},
+    light: {button: elById('lightBtn'), editor: new LightEditor(viewport, world)},
+    target: {button: elById('targetBtn'), editor: new TargetEditor(viewport, world)},
+    yield: {button: elById('yieldBtn'), editor: new YieldEditor(viewport, world)},
 };
 
 setMode('graph');

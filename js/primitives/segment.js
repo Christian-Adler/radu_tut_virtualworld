@@ -27,6 +27,10 @@ class Segment {
         return this.includesPoint(segment.p1) && this.includesPoint(segment.p2);
     }
 
+    includes(point) {
+        return this.includesPoint(point);
+    }
+
     includesPoint(point) {
         return this.p1.equals(point) || this.p2.equals(point);
     }
@@ -46,11 +50,10 @@ class Segment {
         const b = subtract(this.p2, this.p1);
         const normB = normalize(b);
         const scaler = dot(a, normB);
-        const proj = {
+        return {
             point: add(this.p1, scale(normB, scaler)),
             offset: scaler / magnitude(b),
         };
-        return proj;
     }
 
     isValid() {
