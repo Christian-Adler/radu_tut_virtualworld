@@ -9,18 +9,26 @@ class GraphEditor {
         this.hovered = null;
         this.dragging = false;
 
+        this.enabled = true;
+
         this.mouse = null; // from mousemove
     }
 
     enable() {
         this.#addEventListeners();
+        this.enabled = true;
     }
 
     disable() {
+        this.enabled = false;
         this.#removeEventListeners();
+        this.selected = false;
+        this.hovered = false;
     }
 
     #addEventListeners() {
+        this.disable(); // just to be sure
+
         this.boundMouseDown = this.#handleMouseDown.bind(this);
         this.boundMouseMove = this.#handleMouseMove.bind(this);
         this.boundMouseUp = () => this.dragging = false;
@@ -88,6 +96,8 @@ class GraphEditor {
     }
 
     display() {
+        if (!this.enabled)
+            return;
         this.graph.draw(ctx);
         if (this.hovered)
             this.hovered.draw(this.ctx, {fill: true});
