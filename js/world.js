@@ -82,11 +82,12 @@ class World {
             bases.push(new Envelope(support, this.buildingWidth).poly);
         }
 
+        const eps = 0.001;
         for (let i = 0; i < bases.length - 1; i++) {
             const basisI = bases[i];
             for (let j = i + 1; j < bases.length; j++) {
                 const basisJ = bases[j];
-                if (basisI.intersectsPoly(basisJ)) {
+                if (basisI.intersectsPoly(basisJ) || basisI.distanceToPoly(basisJ) < this.spacing - eps) {
                     bases.splice(j, 1);
                     j--;
                 }
@@ -118,6 +119,8 @@ class World {
                 lerp(left, right, Math.random()),
                 lerp(bottom, top, Math.random())
             )
+
+            // check if trees near or inside buildings/roads
             let keep = true;
             for (const poly of illegalPolys) {
                 if (poly.containsPoint(p) || poly.distanceToPoint(p) < this.treeSize / 2) {
@@ -126,6 +129,7 @@ class World {
                 }
             }
 
+            // check if tree too close to other trees
             if (keep) {
                 for (const tree of trees) {
                     if (distance(tree, p) < this.treeSize) {
@@ -133,6 +137,18 @@ class World {
                         break;
                     }
                 }
+            }
+
+            // avoiding trees in the middle of nowhere
+            if (keep) {
+                let closeToSomething = false;
+                for (const illegalPoly of illegalPolys) {
+                    if (illegalPoly.distanceToPoint(p) < this.treeSize * 2) {
+                        closeToSomething = true;
+                        break;
+                    }
+                }
+                keep = closeToSomething;
             }
 
             if (keep) {
