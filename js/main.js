@@ -18,6 +18,12 @@ const graphEditor = new GraphEditor(viewport, graph);
 const stopEditor = new StopEditor(viewport, world);
 const crossingEditor = new CrossingEditor(viewport, world);
 
+const tools = {
+    graph: {button: graphBtn, editor: graphEditor},
+    stop: {button: stopBtn, editor: stopEditor},
+    crossing: {button: crossingBtn, editor: crossingEditor}
+};
+
 setMode('graph');
 
 let oldGraphHash = graph.hash();
@@ -35,9 +41,9 @@ function animate() {
     world.draw(ctx, viewPoint);
 
     ctx.globalAlpha = 0.8;
-    graphEditor.display();
-    stopEditor.display();
-    crossingEditor.display();
+    for (const tool of Object.values(tools)) {
+        tool.editor.display();
+    }
 
     requestAnimationFrame(animate);
 }
@@ -53,33 +59,17 @@ function save() {
 
 function setMode(mode) {
     disableEditors();
-    switch (mode) {
-        case 'graph':
-            graphBtn.style.backgroundColor = 'white';
-            graphBtn.style.filter = '';
-            graphEditor.enable();
-            break;
-        case 'stop':
-            stopBtn.style.backgroundColor = 'white';
-            stopBtn.style.filter = '';
-            stopEditor.enable();
-            break;
-        case 'crossing':
-            crossingBtn.style.backgroundColor = 'white';
-            crossingBtn.style.filter = '';
-            crossingEditor.enable();
-            break;
-    }
+
+    const tool = tools[mode];
+    tool.button.style.backgroundColor = 'white';
+    tool.button.style.filter = '';
+    tool.editor.enable();
 }
 
 function disableEditors() {
-    graphBtn.style.backgroundColor = 'gray';
-    graphBtn.style.filter = 'grayscale(100%)';
-    graphEditor.disable();
-    stopBtn.style.backgroundColor = 'gray';
-    stopBtn.style.filter = 'grayscale(100%)';
-    stopEditor.disable();
-    crossingBtn.style.backgroundColor = 'gray';
-    crossingBtn.style.filter = 'grayscale(100%)';
-    crossingEditor.disable();
+    for (const tool of Object.values(tools)) {
+        tool.editor.disable();
+        tool.button.style.backgroundColor = 'gray';
+        tool.button.style.filter = 'grayscale(100%)';
+    }
 }
