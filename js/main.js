@@ -14,14 +14,11 @@ const graphInfo = graphString ? JSON.parse(graphString) : null;
 const graph = graphInfo ? Graph.load(graphInfo) : new Graph();
 const world = new World(graph);
 const viewport = new Viewport(canvas);
-const graphEditor = new GraphEditor(viewport, graph);
-const stopEditor = new StopEditor(viewport, world);
-const crossingEditor = new CrossingEditor(viewport, world);
 
 const tools = {
-    graph: {button: graphBtn, editor: graphEditor},
-    stop: {button: stopBtn, editor: stopEditor},
-    crossing: {button: crossingBtn, editor: crossingEditor}
+    graph: {button: graphBtn, editor: new GraphEditor(viewport, graph)},
+    stop: {button: stopBtn, editor: new StopEditor(viewport, world)},
+    crossing: {button: crossingBtn, editor: new CrossingEditor(viewport, world)}
 };
 
 setMode('graph');
@@ -49,7 +46,7 @@ function animate() {
 }
 
 function dispose() {
-    graphEditor.dispose();
+    tools['graph'].editor.dispose();
     world.markings.length = 0;
 }
 
