@@ -19,6 +19,10 @@ class Segment {
         return distance(this.p1, this.p2);
     }
 
+    directionVector() {
+        return normalize(subtract(this.p2, this.p1));
+    }
+
     equals(segment) {
         return this.includesPoint(segment.p1) && this.includesPoint(segment.p2);
     }
