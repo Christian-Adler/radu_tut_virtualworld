@@ -1,8 +1,20 @@
 class Tree {
-    constructor(center, size, heightCoef = 0.3) {
+    constructor(center, size, heightCoef = 0.1) {
         this.center = center;
         this.size = size; // size of the base
         this.heightCoef = heightCoef;
+        this.base = this.#generateLevel(center, size); // tree base to interact with cars later...
+    }
+
+    #generateLevel(point, size) {
+        const points = [];
+        const rad = size / 2;
+        for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / 16) {
+            const kindOfRandom = Math.cos(((angle + this.center.x) * size) % 17) ** 2;
+            const noisyRadius = rad * lerp(0.5, 1, kindOfRandom);
+            points.push(translate(point, angle, noisyRadius));
+        }
+        return new Polygon(points);
     }
 
     draw(ctx, viewPoint) {
@@ -17,9 +29,12 @@ class Tree {
             const point = lerp2D(this.center, top, t);
             const color = 'rgb(30,' + lerp(50, 200, t) + ',70)';
             const size = lerp(this.size, this.size / 4, t);
-            point.draw(ctx, {size, color});
-        }
+            // point.draw(ctx, {size, color});
 
+            const poly = this.#generateLevel(point, size);
+            poly.draw(ctx, {fill: color, stroke: 'rgba(0,0,0,0)'});
+        }
+        this.base.draw(ctx);
         // new Segment(this.center, top).draw(ctx); // axis of the tree ;)
     }
 
