@@ -1,3 +1,7 @@
+const graphBtn = window.document.getElementById('graphBtn');
+const stopBtn = window.document.getElementById('stopBtn');
+
+
 const canvas = window.document.getElementById('canvas');
 canvas.width = 600;
 canvas.height = 600;
@@ -10,6 +14,8 @@ const graph = graphInfo ? Graph.load(graphInfo) : new Graph();
 const world = new World(graph);
 const viewport = new Viewport(canvas);
 const graphEditor = new GraphEditor(viewport, graph);
+
+setMode('graph');
 
 let oldGraphHash = graph.hash();
 
@@ -39,3 +45,25 @@ function save() {
     localStorage.setItem('graph', JSON.stringify(graph));
 }
 
+function setMode(mode) {
+    disableEditors();
+    switch (mode) {
+        case 'graph':
+            graphBtn.style.backgroundColor = 'white';
+            graphBtn.style.filter = '';
+            graphEditor.enable();
+            break;
+        case 'stop':
+            stopBtn.style.backgroundColor = 'white';
+            stopBtn.style.filter = '';
+            break;
+    }
+}
+
+function disableEditors() {
+    graphBtn.style.backgroundColor = 'gray';
+    graphBtn.style.filter = 'grayscale(100%)';
+    graphEditor.disable();
+    stopBtn.style.backgroundColor = 'gray';
+    stopBtn.style.filter = 'grayscale(100%)';
+}

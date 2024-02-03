@@ -8,9 +8,13 @@
 <body>
 <h1>World Editor</h1>
 <canvas id="canvas"></canvas>
-<div id="controls">
+<div id="controls"><!-- https://emojipedia.org -->
     <button onclick="dispose()">🗑️</button>
     <button onclick="save()">💾</button>
+    &nbsp;
+    <button id="graphBtn" onclick="setMode('graph')">📐</button>
+    <button id="stopBtn" onclick="setMode('stop')">🛑</button>
+
 </div>
 
 <script src="js/math/utils.js"></script>
