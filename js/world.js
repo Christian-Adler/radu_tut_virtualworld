@@ -73,7 +73,23 @@ class World {
             }
         }
 
-        return supports;
+        const bases = [];
+        for (const support of supports) {
+            bases.push(new Envelope(support, this.buildingWidth).poly);
+        }
+
+        for (let i = 0; i < bases.length - 1; i++) {
+            const basisI = bases[i];
+            for (let j = i + 1; j < bases.length; j++) {
+                const basisJ = bases[j];
+                if (basisI.intersectsPoly(basisJ)) {
+                    bases.splice(j, 1);
+                    j--;
+                }
+            }
+        }
+
+        return bases;
     }
 
     draw(ctx) {

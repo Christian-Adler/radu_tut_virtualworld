@@ -77,6 +77,16 @@ class Polygon {
         return this.containsPoint(midPoint);
     }
 
+    intersectsPoly(polygon) {
+        for (const segment1 of this.segments) {
+            for (const segment2 of polygon.segments) {
+                if (getIntersection(segment1.p1, segment1.p2, segment2.p1, segment2.p2))
+                    return true;
+            }
+        }
+        return false;
+    }
+
     containsPoint(point) {
         const outerPoint = new Point(-10000, -10000);
         let intersectionCount = 0;
