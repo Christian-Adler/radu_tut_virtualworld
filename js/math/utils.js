@@ -65,6 +65,10 @@ function lerp(A, B, t) {
     return A + (B - A) * t;
 }
 
+function lerp2D(pointA, pointB, t) {
+    return new Point(lerp(pointA.x, pointB.x, t), lerp(pointA.y, pointB.y, t));
+}
+
 function getIntersection(A, B, C, D) {
     // see segment intersection freeCodeCamp.org youTube channel
     const tTop = (D.x - C.x) * (A.y - C.y) - (D.y - C.y) * (A.x - C.x);
