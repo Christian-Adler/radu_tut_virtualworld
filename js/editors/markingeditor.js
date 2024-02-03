@@ -21,9 +21,9 @@ class MarkingEditor {
         return center;
     }
 
-    // to be overwritten
+    // may be overwritten
     getMarkingDistanceToSegmentEndThreshold() {
-        return 0;
+        return this.world.roadWidth / 2;
     }
 
     // used in main.js in for loop     tool.editor.enable();

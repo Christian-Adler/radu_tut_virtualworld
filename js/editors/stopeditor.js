@@ -6,8 +6,4 @@ class StopEditor extends MarkingEditor {
     createMarking(center, directionVector) {
         return new Stop(center, directionVector, this.world.roadWidth / 2, world.roadWidth / 2);
     }
-
-    getMarkingDistanceToSegmentEndThreshold() {
-        return this.world.roadWidth / 2;
-    }
 }
