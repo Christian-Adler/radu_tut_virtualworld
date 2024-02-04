@@ -4,6 +4,10 @@ class Segment {
         this.p2 = p2;
     }
 
+    static load(info) {
+        return new Segment(Point.load(info.p1), Point.load(info.p2));
+    }
+
     draw(ctx, {width = 2, color = 'black', dash = []} = {}) {
         ctx.beginPath();
         ctx.strokeStyle = color;

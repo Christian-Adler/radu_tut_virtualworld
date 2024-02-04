@@ -4,10 +4,12 @@ canvas.height = 600;
 
 const ctx = canvas.getContext('2d');
 
-const graphString = localStorage.getItem('graph');
-const graphInfo = graphString ? JSON.parse(graphString) : null;
-const graph = graphInfo ? Graph.load(graphInfo) : new Graph();
-const world = new World(graph);
+const worldString = localStorage.getItem('world');
+const worldInfo = worldString ? JSON.parse(worldString) : null;
+
+const world = worldInfo ? World.load(worldInfo) : new World(new Graph());
+const graph = world.graph;
+
 const viewport = new Viewport(canvas);
 
 const tools = {
@@ -51,7 +53,7 @@ function dispose() {
 }
 
 function save() {
-    localStorage.setItem('graph', JSON.stringify(graph));
+    localStorage.setItem('world', JSON.stringify(world));
 }
 
 function setMode(mode) {

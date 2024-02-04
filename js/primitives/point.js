@@ -4,6 +4,10 @@ class Point {
         this.y = round2(y);
     }
 
+    static load(info) {
+        return new Point(info.x, info.y);
+    }
+
     draw(ctx, {size = 18, color = 'black', outline = false, fill = false} = {}) {
         const rad = size / 2;
         ctx.beginPath();
