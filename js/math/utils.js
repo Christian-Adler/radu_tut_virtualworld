@@ -134,3 +134,7 @@ function getFake3dPoint(point, viewPoint, height) {
 function elById(id) {
     return window.document.getElementById(id);
 }
+
+function round2(val) {
+    return Math.round((val + Number.EPSILON) * 100) / 100;
+}

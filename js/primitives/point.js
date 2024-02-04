@@ -1,7 +1,7 @@
 class Point {
     constructor(x, y) {
-        this.x = x;
-        this.y = y;
+        this.x = round2(x);
+        this.y = round2(y);
     }
 
     draw(ctx, {size = 18, color = 'black', outline = false, fill = false} = {}) {
