@@ -47,6 +47,9 @@ class World {
 
         world.markings = info.markings.map(m => Marking.load(m));
 
+        world.zoom = info.zoom;
+        world.offset = info.offset;
+
         return world;
     }
 

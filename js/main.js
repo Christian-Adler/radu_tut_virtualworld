@@ -10,7 +10,7 @@ const worldInfo = worldString ? JSON.parse(worldString) : null;
 let world = worldInfo ? World.load(worldInfo) : new World(new Graph());
 const graph = world.graph;
 
-const viewport = new Viewport(canvas);
+const viewport = new Viewport(canvas, world.zoom, world.offset);
 
 const tools = {
     graph: {button: elById('graphBtn'), editor: new GraphEditor(viewport, graph)},
@@ -53,6 +53,9 @@ function dispose() {
 }
 
 function save() {
+    world.zoom = viewport.zoom;
+    world.offset = viewport.offset;
+
     const a = document.createElement('a');
     a.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(world)));
     const fileName = "name.world";
